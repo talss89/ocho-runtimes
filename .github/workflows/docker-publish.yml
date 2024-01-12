@@ -34,7 +34,7 @@ jobs:
         id: generate
         uses: docker/bake-action/subaction/list-targets@v4
         with:
-          target: validate
+          target: default
   build:
     runs-on: ubuntu-latest
     needs:
