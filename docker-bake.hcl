@@ -16,14 +16,14 @@ target "php" {
   args = {
     PHP_VERSION = "${PHP_VERSION}"
   }
-  target = "./php/Dockerfile"
+  dockerfile = "./php/Dockerfile"
   context = "."
   platforms = ["linux/amd64", "linux/arm64"]
 }
 
 target "openresty" {
   tags = ["ghcr.io/ocho/ocho-openresty:${TAG}"]
-  target = "./openresty/Dockerfile"
+  dockerfile = "./openresty/Dockerfile"
   context = "."
   platforms = ["linux/amd64", "linux/arm64"]
 }
