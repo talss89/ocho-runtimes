@@ -8,4 +8,5 @@ This fork intends to implement the following changes, which diverge from the Bit
 - [ ] Moves the HTTP server to a separate container
 - [ ] Dev container support
 - [ ] Devspace support
+- [ ] Make -> Bake
 - [ ] Built via GH actions
