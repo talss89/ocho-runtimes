@@ -19,5 +19,5 @@ RUN set -ex \
     && chown -R www-data:www-data /app /src
 
 COPY --chown=www-data:www-data ./common/docker /usr/local/docker
-COPY --chown=www-data:www-data ./php/docker /usr/local/docker
+COPY --chown=www-data:www-data ./wordpress/docker /usr/local/docker
 USER www-data
