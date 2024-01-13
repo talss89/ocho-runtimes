@@ -59,7 +59,7 @@ RUN set -ex \
     # symlink php.ini from /app/config/php.ini
     && ln -sf /app/config/php.ini /usr/local/etc/php/conf.d/zz-90-app.ini \
     # our dummy index
-    && mkdir /app/we \
+    && mkdir /app/web \
     && { \
        echo "<?php phpinfo(); "; \
     } | tee /app/web/index.php >&2 \
