@@ -7,7 +7,7 @@ COPY ./common/docker/build-scripts /usr/local/docker/build-scripts/
 
 ENV PATH="/usr/local/docker/bin:${PATH}"
 ENV PORT=8080
-ENV DOCUMENT_ROOT=/app/html
+ENV DOCUMENT_ROOT=/app/web
 
 RUN adduser -S -D -u ${WWW_DATA_UID} -s /sbin/nologin -h /var/www -G www-data www-data
 
