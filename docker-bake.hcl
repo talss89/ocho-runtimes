@@ -12,7 +12,7 @@ group "default" {
 }
 
 target "php" {
-  tags = ["ghcr.io/ocho/ocho-php-${PHP_VERSION}:${TAG}"]
+  tags = ["ghcr.io/talss89/ocho-php-${PHP_VERSION}:${TAG}"]
   args = {
     PHP_VERSION = "${PHP_VERSION}"
   }
@@ -22,7 +22,7 @@ target "php" {
 }
 
 target "openresty" {
-  tags = ["ghcr.io/ocho/ocho-openresty:${TAG}"]
+  tags = ["ghcr.io/talss89/ocho-openresty:${TAG}"]
   dockerfile = "./openresty/Dockerfile"
   context = "."
   platforms = ["linux/amd64", "linux/arm64"]
