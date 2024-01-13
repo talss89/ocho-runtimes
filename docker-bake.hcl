@@ -1,4 +1,9 @@
 # docker-bake.hcl
+
+variable "OCHO_TARGET_PLATFORM" {
+  default = "linux/amd64"
+}
+
 variable "PHP_VERSION" {
   default = "8.2"
 }
@@ -22,14 +27,14 @@ target "php" {
   }
   dockerfile = "./php/Dockerfile"
   context = "."
-  platforms = ["linux/amd64", "linux/arm64"]
+  platforms = ["${OCHO_TARGET_PLATFORM}"]
 }
 
 target "openresty" {
   tags = ["ghcr.io/talss89/ocho-openresty:${TAG}"]
   dockerfile = "./openresty/Dockerfile"
   context = "."
-  platforms = ["linux/amd64", "linux/arm64"]
+  platforms = ["${OCHO_TARGET_PLATFORM}"]
 }
 
 target "bedrock" {
@@ -42,7 +47,7 @@ target "bedrock" {
   args = {
     WP_CLI_VERSION = "${WP_CLI_VERSION}"
   }
-  platforms = ["linux/amd64", "linux/arm64"]
+  platforms = ["${OCHO_TARGET_PLATFORM}"]
 }
 
 target "bedrock-build" {
@@ -52,7 +57,7 @@ target "bedrock-build" {
   contexts = {
     bedrock = "target:bedrock"
   }
-  platforms = ["linux/amd64", "linux/arm64"]
+  platforms = ["${OCHO_TARGET_PLATFORM}"]
 }
 
 target "wordpress-vanilla" {
@@ -69,5 +74,5 @@ target "wordpress-vanilla" {
   args = {
     WORDPRESS_VERSION = "${wp_version}"
   }
-  platforms = ["linux/amd64", "linux/arm64"]
+  platforms = ["${OCHO_TARGET_PLATFORM}"]
 }
