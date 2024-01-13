@@ -8,6 +8,7 @@ ENV WP_CONTENT_DIR=${DOCUMENT_ROOT}/app
 ENV STACK_MEDIA_PATH=/app/uploads
 USER root
 COPY ./common/docker/build-scripts /usr/local/docker/build-scripts/
+COPY ./wordpress/docker/build-scripts /usr/local/docker/build-scripts/
 RUN set -ex \
     && /usr/local/docker/build-scripts/install-wp-cli \
     && rm -rf /app \
