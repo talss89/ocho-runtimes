@@ -54,7 +54,6 @@ RUN set -ex \
 WORKDIR /app
 # prepare rootfs
 RUN set -ex \
-    && usermod -u ${} \
     # symlink generated php.ini
     && ln -sf /usr/local/docker/etc/php.ini /usr/local/etc/php/conf.d/zz-01-custom.ini \
     # symlink php.ini from /app/config/php.ini
