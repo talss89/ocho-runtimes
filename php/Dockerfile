@@ -28,9 +28,6 @@ RUN set -ex \
     && usermod -u ${WWW_DATA_UID} www-data\
     && groupmod -g ${WWW_DATA_GID} www-data
 
-RUN find / -group 33 -exec chgrp -h www-data {} \;\
-    && find / -user 33 -exec chown -h www-data {} \;\
-
 RUN set -ex \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
