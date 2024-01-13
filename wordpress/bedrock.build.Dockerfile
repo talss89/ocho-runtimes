@@ -1,5 +1,4 @@
-ARG BASE_IMAGE=docker.io/bitpoke/wordpress-runtime:bedrock
-FROM ${BASE_IMAGE} as bedrock
+FROM bedrock
 WORKDIR /src
 # Install project dependencies as first build step for child images so that we
 # heat up composer cache

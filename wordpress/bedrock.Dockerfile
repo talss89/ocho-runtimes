@@ -1,13 +1,13 @@
-ARG PHP_BASE_IMAGE=docker.io/bitpoke/php-runtime:8.2
-FROM ${PHP_BASE_IMAGE} as bedrock
+FROM php
 
-ENV WP_CLI_VERSION=2.7.1
+ARG WP_CLI_VERSION=2.9.0
+ENV WP_CLI_VERSION=${WP_CLI_VERSION}
 ENV WP_CLI_CONFIG_PATH=/app/wp-cli.yml
 ENV DOCUMENT_ROOT=/app/web
 ENV WP_CONTENT_DIR=${DOCUMENT_ROOT}/app
 ENV STACK_MEDIA_PATH=/app/uploads
 USER root
-COPY docker/build-scripts /usr/local/docker/build-scripts/
+COPY ./common/docker/build-scripts /usr/local/docker/build-scripts/
 RUN set -ex \
     && /usr/local/docker/build-scripts/install-wp-cli \
     && rm -rf /app \
@@ -17,5 +17,6 @@ RUN set -ex \
     } | tee /app/wp-cli.yml >&2 \
     && chown -R www-data:www-data /app /src
 
-COPY --chown=www-data:www-data ./docker /usr/local/docker
+COPY --chown=www-data:www-data ./common/docker /usr/local/docker
+COPY --chown=www-data:www-data ./php/docker /usr/local/docker
 USER www-data
