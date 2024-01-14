@@ -11,4 +11,4 @@ curl --silent --location \
     https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh |
     sh
 
-ubi -p talss89/envtmpl -t v0.1.0 -i ${TARGET}
+ubi -p talss89/envtmpl -t v0.2.0 -i ${TARGET}
