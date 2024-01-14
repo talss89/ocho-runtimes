@@ -104,7 +104,9 @@ RUN set -ex \
     && ln -sf /dev/null /var/lib/nginx/logs/error.log \
     && chown -R www-data:www-data /app \
     && chown -R www-data:www-data /run \
-    && chown -R www-data:www-data /var/lib/nginx 
+    && chown -R www-data:www-data /var/lib/nginx \
+    && mkdir /var/www \
+    && chown -R www-data:www-data /var/www
 
 COPY --chown=www-data:www-data ./common/docker /usr/local/docker
 COPY --chown=www-data:www-data ./php/docker /usr/local/docker
