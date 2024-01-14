@@ -62,7 +62,7 @@ target "wordpress-vanilla" {
     wp_version = ["6.3.2", "6.4.1"]
   }
   tags = ["ghcr.io/talss89/ocho-wordpress-${wp_version}-php-${PHP_VERSION}:${TAG}"]
-  dockerfile = "./wordpress/bedrock.build.Dockerfile"
+  dockerfile = "./wordpress/wordpress-vanilla.Dockerfile"
   context = "."
   contexts = {
     bedrock = "target:bedrock"
