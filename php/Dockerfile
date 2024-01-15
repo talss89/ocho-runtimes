@@ -83,7 +83,8 @@ RUN set -eux; \
     msmtp \
     curl \
     less\
-    git\
+    unzip \
+    git \
     openssh-client\
     ;\
     rm -rf /var/lib/apt/lists/* /var/cache/*
