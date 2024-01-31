@@ -5,6 +5,7 @@ ENV WORDPRESS_VERSION=${WORDPRESS_VERSION}
 ENV WP_CONTENT_DIR=${DOCUMENT_ROOT}/wp-content
 ENV STACK_MEDIA_PATH=/wp-content/uploads
 RUN set -ex \
+    && rm -rf /app/web/app \
     && wp core download --skip-content --path=web/wp --version=${WORDPRESS_VERSION} \
     && cp /usr/local/docker/webroot/* /app/web/
 ONBUILD COPY --chown=www-data:www-data config /app/config

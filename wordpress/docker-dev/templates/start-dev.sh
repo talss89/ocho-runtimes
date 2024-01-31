@@ -1,12 +1,14 @@
 #! /bin/sh
 
 get_php_pid() {
-    echo $(ps ax | grep "start-php-fpm" -m1 | grep -v grep | sed 's/^[ \t]*//;s/[ \t]*$//' | cut -d " " -f1)
+    echo $(ps ax | grep "start-dev" -m1 | grep -v grep | sed 's/^[ \t]*//;s/[ \t]*$//' | cut -d " " -f1)
 }
 
 cp /usr/local/docker/etc/.bashrc ~/.bashrc
 
-export COMPOSER_ALLOW_SUPERUSER=1
+rm -f /srv/web
+ln -s /proc/$(get_php_pid)/root$DOCUMENT_ROOT /srv/web
+
 if [ -f "composer.json" ]; then
    echo "Installing PHP dependencies"
    composer install \
@@ -24,9 +26,6 @@ else
       npm install
    fi
 fi
-
-rm -f /srv/web
-ln -s /proc/$(get_php_pid)/root$DOCUMENT_ROOT /srv/web
 
 /usr/local/sbin/php-fpm -y /usr/local/docker/etc/php-fpm.conf &
 
