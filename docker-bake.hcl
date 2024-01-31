@@ -13,7 +13,7 @@ variable "TAG" {
 }
 
 group "default" {
-  targets = ["php", "openresty", "bedrock", "bedrock-build", "wordpress-vanilla"]
+  targets = ["php", "openresty", "bedrock", "bedrock-build", "wordpress-vanilla", "dev"]
 }
 
 target "php" {
@@ -23,27 +23,42 @@ target "php" {
   }
   dockerfile = "./php/Dockerfile"
   context = "."
-  platforms = ["linux/amd64","linux/arm64"]
+  platforms = ["linux/amd64", "linux/aarch64"]
 }
 
 target "openresty" {
   tags = ["ghcr.io/talss89/ocho-openresty:${TAG}"]
   dockerfile = "./openresty/Dockerfile"
   context = "."
-  platforms = ["linux/amd64","linux/arm64"]
+  platforms = ["linux/amd64", "linux/aarch64"]
 }
 
 target "bedrock" {
   tags = ["ghcr.io/talss89/ocho-bedrock-${PHP_VERSION}:${TAG}"]
   dockerfile = "./wordpress/bedrock.Dockerfile"
   context = "."
+  target = "base"
   contexts = {
     php = "target:php"
   }
   args = {
     WP_CLI_VERSION = "${WP_CLI_VERSION}"
   }
-  platforms = ["linux/amd64","linux/arm64"]
+  platforms = ["linux/amd64", "linux/aarch64"]
+}
+
+target "dev" {
+  tags = ["ghcr.io/talss89/ocho-dev-${PHP_VERSION}:${TAG}"]
+  dockerfile = "./wordpress/bedrock.Dockerfile"
+  context = "."
+  target = "dev"
+  contexts = {
+    php = "target:php"
+  }
+  args = {
+    WP_CLI_VERSION = "${WP_CLI_VERSION}"
+  }
+  platforms = ["linux/amd64", "linux/aarch64"]
 }
 
 target "bedrock-build" {
@@ -53,13 +68,13 @@ target "bedrock-build" {
   contexts = {
     bedrock = "target:bedrock"
   }
-  platforms = ["linux/amd64","linux/arm64"]
+  platforms = ["linux/amd64", "linux/aarch64"]
 }
 
 target "wordpress-vanilla" {
   name = "wordpress-vanilla-${replace(wp_version, ".", "-")}"
   matrix = {
-    wp_version = ["6.3.2", "6.4.1"]
+    wp_version = ["6.3.2", "6.4.1", "6.4.2", "6.4.3"]
   }
   tags = ["ghcr.io/talss89/ocho-wordpress-${wp_version}-php-${PHP_VERSION}:${TAG}"]
   dockerfile = "./wordpress/wordpress-vanilla.Dockerfile"
@@ -70,5 +85,5 @@ target "wordpress-vanilla" {
   args = {
     WORDPRESS_VERSION = "${wp_version}"
   }
-  platforms = ["linux/amd64","linux/arm64"]
+  platforms = ["linux/amd64", "linux/aarch64"]
 }
