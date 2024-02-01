@@ -231,8 +231,6 @@ PROMPT_COMMAND='__setprompt'
 NPM_PACKAGES="${HOME}/.npm-packages"
 COMPOSER_PACKAGES="/var/lib/composer/vendor"
 
-export PATH="/var/www/.volta/bin:$PATH"
-
 # NPM should install global packages in $HOME
 npm config set prefix "${NPM_PACKAGES}"
 
@@ -244,7 +242,6 @@ export PATH="$PATH:$NPM_PACKAGES/bin:$COMPOSER_PACKAGES/bin"
 
 echo -e "${CYAN}PHP: ${LIGHTMAGENTA}$(php -r 'echo PHP_VERSION;')"
 echo -e "${CYAN}Node: ${LIGHTMAGENTA}$(node -v)"
-echo -e "${CYAN}Volta: ${LIGHTMAGENTA}$(volta -v)"
 echo -e "${CYAN}WP CLI: ${LIGHTMAGENTA}${WP_CLI_VERSION}"
 echo
 echo -e "${GREEN}Development URL: ${YELLOW}${WP_HOME}"

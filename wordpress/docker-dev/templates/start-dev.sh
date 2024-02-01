@@ -9,6 +9,7 @@ cp /usr/local/docker/etc/.bashrc ~/.bashrc
 rm -f /srv/web
 ln -s /proc/$(get_php_pid)/root$DOCUMENT_ROOT /srv/web
 
+cd /app
 if [ -f "composer.json" ]; then
    echo "Installing PHP dependencies"
    composer install \

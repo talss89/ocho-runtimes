@@ -1,3 +1,4 @@
+ARG NODE_VERSION=20
 FROM php AS base
 
 ARG WP_CLI_VERSION=2.9.0
@@ -24,9 +25,13 @@ COPY --chown=www-data:www-data ./common/docker /usr/local/docker
 COPY --chown=www-data:www-data ./wordpress/docker /usr/local/docker
 USER www-data
 
+
+FROM node:${NODE_VERSION} as node
 FROM base as dev
-ARG NODE_VERSION=20
 USER root
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -42,7 +47,4 @@ ENV NODE_ENV=development
 RUN mkdir /var/www/.ssh
 SHELL ["/bin/bash", "-c"]
 ENV BASH_ENV ~/.bashrc
-ENV VOLTA_HOME /var/www/.volta
-ENV PATH $VOLTA_HOME/bin:$PATH
-RUN curl https://get.volta.sh | bash && volta install node@${NODE_VERSION}
 COPY --chown=www-data:www-data ./wordpress/docker-dev /usr/local/docker
